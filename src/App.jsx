@@ -9,6 +9,8 @@ import {
 import Header from './components/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
+import Watchlist from './pages/Watchlist';
+import MovieDetails from './pages/MovieDetails';
 import { searchMovies } from './services/movieService';
 import './App.css';
 
@@ -18,7 +20,6 @@ function App() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState(null);
 
-  // Load saved favorites when the application starts
   const [favorites, setFavorites] = useState(() => {
     try {
       const savedFavorites = localStorage.getItem('favorites');
@@ -33,7 +34,6 @@ function App() {
     }
   });
 
-  // Save favorites whenever they change
   useEffect(() => {
     try {
       localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -42,7 +42,6 @@ function App() {
     }
   }, [favorites]);
 
-  // Add or remove a favorite movie
   const toggleFavorite = (movie) => {
     setFavorites((currentFavorites) => {
       const alreadyFavorite = currentFavorites.some(
@@ -59,7 +58,6 @@ function App() {
     });
   };
 
-  // Search movies using TMDB
   useEffect(() => {
     if (!searchQuery) {
       setSearchResults([]);
@@ -129,6 +127,16 @@ function App() {
               />
             }
           />
+
+          <Route
+            path="/watchlist"
+            element={<Watchlist />}
+          />
+
+          <Route
+            path="/movie/:id"
+            element={<MovieDetails />}
+          />
         </Routes>
       </div>
     </Router>
@@ -136,4 +144,6 @@ function App() {
 }
 
 export default App;
+
+
 

@@ -23,3 +23,4 @@ function MovieGrid({
 }
 
 export default MovieGrid;
+
